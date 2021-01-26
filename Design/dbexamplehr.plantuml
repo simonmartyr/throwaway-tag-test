@@ -1,0 +1,32 @@
+@startuml
+class Tag
+{
+  Tag_Id : Id
+  Name : string
+}
+class Entry
+{
+  Entry_Id: Id
+}
+class Tag_Entry
+{
+  Entry_Id : Id
+  Tag_Id : Id
+}
+class Orginsation
+{
+  name : string
+  vatnumber : string
+}
+class Project
+{
+ name : string
+ active : bool
+}
+
+Entry <-Right- Tag_Entry
+Tag_Entry <-Right- Tag
+Entry --> Orginsation
+Entry --> Project
+
+@enduml

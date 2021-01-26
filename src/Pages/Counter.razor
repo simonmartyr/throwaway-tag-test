@@ -1,0 +1,27 @@
+@page "/counter"
+@using Entities
+@using TagTest.Controllers
+@inject SeedService Seeder
+
+<h1>Data Seed</h1>
+
+<p>Current count: @DbCount </p>
+
+<button class="btn btn-primary" @onclick="CreateDb">Seed Data</button>
+
+<button class="btn btn-primary" @onclick="WipeDb">Wipe Data</button>
+
+@code {
+    private int DbCount = 0;
+
+    private async Task WipeDb()
+    {
+        await Seeder.WipeDb();
+        DbCount = 0;
+    }
+
+    private async Task CreateDb()
+    {
+        DbCount = await Seeder.SeedDb();
+    }
+}

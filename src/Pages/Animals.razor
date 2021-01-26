@@ -1,0 +1,50 @@
+﻿@page "/animals"
+
+@using Dtos
+@using Entities
+@using TagTest.Controllers
+@inject AnimalService PersonService
+
+<h1>Animal List</h1>
+
+<p>List of animals and their tags.</p>
+
+@if (people == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Animal Id</th>
+            <th>Cool?</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in people)
+            {
+                <tr>
+                    <td>@animal.Id</td>
+                    <td>@animal.Cute</td>
+                    <td>@String.Join(",", animal.Tags)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<AnimalDto> people;
+
+    private string tagName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        people = await PersonService.GetAnimals();
+    }
+
+}

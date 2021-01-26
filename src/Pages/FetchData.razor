@@ -1,0 +1,56 @@
+﻿@page "/fetchdata"
+
+@using Entities
+@using TagTest.Controllers
+@inject TagService ForecastService
+
+<h1>Tags List</h1>
+
+<p>List of all Tags.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="OnInitializedAsync">All Tags</button>
+    <button class="btn btn-primary" @onclick="TagsForAnimals">Filter Tags for Animals</button>
+    <button class="btn btn-primary" @onclick="TagsForPeople">Filter Tags for People</button>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Tag Name</th>
+            <th>Tag Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.TagName</td>
+                    <td>@forecast.Id</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Tag> forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetTags();
+    }
+
+    private async Task TagsForPeople()
+    {
+        forecasts = await ForecastService.GetTagsForPeople();
+    }
+
+    private async Task TagsForAnimals()
+    {
+        forecasts = await ForecastService.GetTagsForAnimals();
+    }
+}

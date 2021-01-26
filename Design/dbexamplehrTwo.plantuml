@@ -1,0 +1,43 @@
+@startuml
+class ProjectTag
+{
+  Tag_Id : Id
+  Name : string
+}
+
+class OrginsationTag
+{
+  Tag_Id : Id
+  Name : string
+}
+
+class ProjectJoinTable
+{
+  Tag_Id: Id
+  Project: Id
+}
+
+class OrginsationJoinTable
+{
+  Tag_Id: Id
+  Project: Id
+}
+
+class Orginsation
+{
+  name : string
+  vatnumber : string
+}
+class Project
+{
+ name : string
+ active : bool
+}
+
+ProjectTag --> ProjectJoinTable
+ProjectJoinTable --> Project
+
+OrginsationTag --> OrginsationJoinTable
+OrginsationJoinTable --> Orginsation
+
+@enduml

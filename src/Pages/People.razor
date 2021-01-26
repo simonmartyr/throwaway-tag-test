@@ -1,0 +1,59 @@
+﻿@page "/people"
+
+@using Dtos
+@using Entities
+@using TagTest.Controllers
+@inject PersonService PersonService
+
+<h1>People List</h1>
+
+<p>List of people and their tags.</p>
+
+@if (people == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <input @bind="tagName" />
+    <button class="btn btn-primary" @onclick="AddTagToPerson">Add Tag</button>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Person Id</th>
+            <th>Cool?</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in people)
+            {
+                <tr>
+                    <td>@person.Id</td>
+                    <td>@person.Cool</td>
+                    <td>@String.Join(",", person.Tags)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<PersonDto> people;
+
+    private string tagName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        people = await PersonService.GetPeople();
+    }
+
+    private async Task AddTagToPerson()
+    {
+        await PersonService.AddTag(people.First().Id, tagName);
+        await OnInitializedAsync();
+    }
+
+}

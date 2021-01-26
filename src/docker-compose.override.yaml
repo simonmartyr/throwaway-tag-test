@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  backend:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__TagContext=Server=database,1433;Database=tagtest;User Id=sa;Password=Pass@word
