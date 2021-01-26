@@ -33,14 +33,8 @@ namespace TagTest.Controllers
 
     public async Task<Person> AddTag(int Id, string newTag)
     {
-      // var person = await _context.People
-      // .FindAsync(Id);
-
-      var person = new Person()
-      {
-        Id = Id
-      };
-      _context.People.Attach(person);
+      var person = await _context.People
+      .FindAsync(Id);
       _context.Entry(person).Collection(x => x.Tags).Load();
 
       person.Tags.Add(
