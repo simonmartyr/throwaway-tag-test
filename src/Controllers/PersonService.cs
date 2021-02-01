@@ -46,5 +46,20 @@ namespace TagTest.Controllers
       await _context.SaveChangesAsync();
       return person;
     }
+
+    public async Task<Person> AddTagRandomly(int Id)
+    {
+      var person = await _context.People
+      .FindAsync(Id);
+      _context.Entry(person).Collection(x => x.Tags).Load();
+      int[] toFind = { 1, 2 };
+      var tags = await _context.Tags
+      .Where(t => toFind.Contains(t.Id))
+      .ToListAsync();
+
+      person.Tags = tags;
+      await _context.SaveChangesAsync();
+      return person;
+    }
   }
 }

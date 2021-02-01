@@ -6,7 +6,6 @@ namespace TagTest.Entities
   {
     public int Id { get; set; }
     public string TagName { get; set; }
-    public string TagValue { get; set; }
 
     public ICollection<Taggable> Tagged { get; set; }
   }
